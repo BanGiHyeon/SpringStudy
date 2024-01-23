@@ -15,6 +15,53 @@
    width: 960px;
 }
 </style>
+<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+<script type="text/javascript">
+let bClick=true
+ $(function(){
+	 $('#del').click(function(){
+		 if(bClick==true)
+		 {
+			 bClick=false
+			 $('#delTr').show()
+			 $('#del').text("취소")
+		 }
+		 else
+		 {
+			 bClick=true
+			 $('#delTr').hide()
+			 $('#del').text("수정")
+		 }
+	 })
+	 $('#delBtn').on('click',function(){
+		 let no=$(this).attr("data-no")
+		 let pwd=$('#pwd').val()
+		 if(pwd.trim()==="")
+		 {
+			 $('#pwd').focus()
+			 return;
+		 }
+		 $.ajax({
+			 type:'post',
+			 url:'delete_ok.do',
+			 data:{"no":no,"pwd":pwd},
+			 success:function(result)
+			 {
+				 if(result==='yes')
+				 {
+					 location.href="list.do"
+				 }
+				 else
+				 {
+					 alert("비밀번호가 틀립니다!!")
+					 $('#pwd').val("")
+					 $('#pwd').focus()
+				 }
+			 }
+		 })
+	 })
+ })
+</script>
 </head>
 <body>
   <div class="container">
@@ -42,10 +89,17 @@
      </tr>
      <tr>
       <td colspan="4" class="text-right">
-       <a href="#" class="btn btn-xs btn-danger">답변</a>
+       <a href="reply.do?pno=${vo.no }" class="btn btn-xs btn-danger">답변</a>
        <a href="update.do?no=${vo.no }" class="btn btn-xs btn-success">수정</a>
-       <a href="#" class="btn btn-xs btn-info">삭제</a>
+       <span class="btn btn-xs btn-info" id="del">삭제</span>
        <a href="list.do" class="btn btn-xs btn-warning">목록</a>
+      </td>
+     </tr>
+     <tr style="display: none" id="delTr">
+      <td colspan="4" class="text-right">
+      비밀번호:<input type="password" id=pwd size=10 class="input-sm">
+             <input type="button" value="삭제" class="btn-sm btn-warning" id="delBtn"
+             data-no="${vo.no }">
       </td>
      </tr>
     </table>

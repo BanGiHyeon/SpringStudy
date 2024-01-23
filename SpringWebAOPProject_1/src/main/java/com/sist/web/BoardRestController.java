@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 import com.sist.dao.*;
+// @ResponseBody
 @RestController
 public class BoardRestController {
 	@Autowired
@@ -26,6 +27,17 @@ public class BoardRestController {
 				  +"history.back();"
 				  +"</script>";
 		}
+		return result;
+	}
+	@RequestMapping("board/delete_ok.do")
+	public String board_delete(int no,String pwd)
+	{
+		String result="";
+		boolean bCheck=dao.boardReplyDelete(no, pwd);
+		if(bCheck==true)
+			result="yes";
+		else
+			result="no";
 		return result;
 	}
 }
