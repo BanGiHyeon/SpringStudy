@@ -19,7 +19,7 @@
 </head>
 <body>
   <div class="container">
-   <div class="col-sm-9">
+   <div class="row">
     <h3 class="text-center">답변형 게시판</h3>
     <table class="table">
      <tr>
@@ -63,9 +63,8 @@
      </tr>
     </table>
    </div>
-   <div class="col-sm-3">
-    
-   </div>
+   <div style="height: 20px"></div>
+   <jsp:include page="top.jsp"></jsp:include>
   </div>
 </body>
 </html>

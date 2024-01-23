@@ -42,4 +42,8 @@ public class BoardDAO {
 		}
 		return bCheck;
 	}
+	public List<BoardVO> boardTop5()
+	{
+		return mapper.boardTop5();
+	}
 }

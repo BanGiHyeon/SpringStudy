@@ -48,4 +48,10 @@ public interface BoardMapper {
 	// 6. 답변 => 트랜잭션 적용 
 	// 7. 찾기 => 동적 쿼리 
 	// AOP => 실시간 추적 (로그) , 실시간 인기 게시물 
+	@Select("SELECT no,name,subject,rownum "
+			+"FROM (SELECT no,name,subject "
+			+"FROM springReplyBoard "
+			+"ORDER BY hit DESC) "
+			+"WHERE rownum<=5")
+	public List<BoardVO> boardTop5();
 }
